@@ -2,9 +2,16 @@
 #include "NodeTypes.h"
 using namespace std;
 int moment(BTNode *root);  // finds the moment of the tree
+void countNodes(BTNode* root, int& count){
+    if(root==NULL) return;
+    count++;
+    countNodes(root->left, count);
+    countNodes(root->right, count);
+}
 void inOrder(BTNode *root) // performs non-recursive in-order traversal
 {
    stack<BTNode*> st;
+   cout<<"In order traversal of tree is: \n";
    while(root||!st.empty()){
        while(root){
         st.push(root);
@@ -99,7 +106,7 @@ bool isEqual(BTNode *root1, BTNode *root2)
 void preOrder(BTNode *root)
 {
     stack<BTNode *> st;
-
+    cout<<"PreOrder travsersal of tree is.\n ";
     while (root || !st.empty())
     {
         while (root)
