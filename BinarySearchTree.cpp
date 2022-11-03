@@ -1,7 +1,3 @@
-#include <bits/stdc++.h>
-#include "NodeTypes.h";
-#include "BinaryTree.cpp";
-using namespace std;
 BTNode *recTreeSearch(BTNode *root, string key) // performs a recursive search for key in the BST
 {
   if(root==NULL) return NULL;
@@ -65,7 +61,7 @@ BTNode *ceiling(BTNode *root, string key)
     {
         return ceiling(root->right, key);
     }
-    else
+    else if(root->data>key)
     {
         if (root->left == NULL)
             return root;

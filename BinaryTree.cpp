@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-#include "NodeTypes.h"
-using namespace std;
 int moment(BTNode *root);  // finds the moment of the tree
 void countNodes(BTNode* root, int& count){
     if(root==NULL) return;
@@ -20,6 +17,7 @@ void inOrder(BTNode *root) // performs non-recursive in-order traversal
        root = st.top();
        st.pop();
         cout << " ( " << root->data << " --> " << root->count << " ), ";
+       root = root->right;
    }
    cout<<endl;
 }

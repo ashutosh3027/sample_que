@@ -33,6 +33,11 @@ int main()
             string word;
             while (inputFile >> word)
             { // take word and print
+                if (isEmptyTree(root))
+                {
+                    root = createBTNode(NULL, word);
+                    continue;
+                }
                 insert(root, word);
             }
             cout << "BST is created.\n";
@@ -136,9 +141,14 @@ int main()
             }
             inputFile.open(fileName);
             string word;
-            BTNode *temp;
+            BTNode *temp=NULL;
             while (inputFile >> word)
             { // take word and print
+                if (isEmptyTree(temp))
+                {
+                    temp = createBTNode(NULL, word);
+                    continue;
+                }
                 insert(temp, word);
             }
             if (isEqual(root, temp))
@@ -160,7 +170,7 @@ int main()
             int wtOfTree = weight(root);
             auto smallest = treeMinimum(root)->data;
             auto biggest = treeMaximum(root)->data;
-            cout << "(1) The number of nodes in the tree : " << numOfNodes << "\n(2) The height of the tree: " << htOfTree << "\n(3) The width of the tree: " << wdOfTree << "\n(4) The weight of the tree: "<<wtOfTree<<"\n(5) The smallest word and the biggest word (in alphabetical order) stored in the tree: "<<smallest<<", " <<biggest<<"\n";
+            cout << "(1) The number of nodes in the tree : " << numOfNodes << "\n(2) The height of the tree: " << htOfTree << "\n(3) The width of the tree: " << wdOfTree << "\n(4) The weight of the tree: " << wtOfTree << "\n(5) The smallest word and the biggest word (in alphabetical order) stored in the tree: " << smallest << ", " << biggest << "\n";
         }
         else if (menuOption == 'Q')
             break;
