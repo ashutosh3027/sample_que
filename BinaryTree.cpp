@@ -4,7 +4,17 @@ using namespace std;
 int moment(BTNode *root);  // finds the moment of the tree
 void inOrder(BTNode *root) // performs non-recursive in-order traversal
 {
-    
+   stack<BTNode*> st;
+   while(root||!st.empty()){
+       while(root){
+        st.push(root);
+        root= root->left;
+       }
+       root = st.top();
+       st.pop();
+        cout << " ( " << root->data << " --> " << root->count << " ), ";
+   }
+   cout<<endl;
 }
 void levelOrder(BTNode *root) // performs level-order traversal
 {
@@ -35,7 +45,7 @@ BTNode *createBTNode(BTNode *parent, string data)
 {
     BTNode *newNode = new BTNode();
     newNode->data = data;
-    newNode->count += 1;
+    newNode->count = 1;
     newNode->left = NULL;
     newNode->right = NULL;
     newNode->parent = parent;

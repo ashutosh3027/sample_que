@@ -4,19 +4,58 @@
 using namespace std;
 BTNode *recTreeSearch(BTNode *root, string key) // performs a recursive search for key in the BST
 {
-    
+  if(root==NULL) return NULL;
+  if(root->data<key){
+    return recTreeSearch(root->right, key);
+  }   
+  else if(root->data>key){
+    return recTreeSearch(root->left, key);
+  }
+  else{
+    return root;
+  }
 }
 BTNode *treeMinimum(BTNode *root) // finds the smallest node in the BST
 {
-
+    BTNode* current = root;
+    while (current->left != NULL)
+        current = current->left;
+     
+    return current;
 }
 BTNode *treeMaximum(BTNode *root) // finds the largest node in the BST
 {
-
+    BTNode* current = root;
+    while (current->right != NULL)
+        current = current->right;
+     
+    return current;
 }
 BTNode *inOrderSuccessor(BTNode *node) // finds the inorder successor of a node in the BST
 {
-
+    if (node == NULL)
+        return NULL;
+    // If node has a Right Child
+    if (node->right != NULL)
+    {
+        // Move to Right Node
+        node = node->right;
+        // Move to the extreme left
+        while (node->left != NULL)
+            node = node->left;
+        return node;
+    }
+    while (node)
+    {
+        BTNode *temp = node->parent;
+        if (temp == NULL)
+            break;
+        if (temp->left == node)
+            return temp;
+        else
+            node = temp;
+    }
+    return NULL;
 }
 BTNode *ceiling(BTNode *root, string key)
 {
@@ -97,9 +136,25 @@ BTNode *floor(BTNode *root, string key)
 }
 BTNode *inOrderPredecessor(BTNode *node)
 {
+    if (node == NULL)
+        return NULL;
+    if (node->left)
+    {
+        BTNode *pred = node->left;
+        while (pred->right)
+            pred = pred->right;
+        return pred;
+
+    }
+    return node->parent;
+   
 }
 bool insert(BTNode *root, string key)
 {
+    if(root==NULL){
+        root = createBTNode(NULL, key);
+        return true;
+    }
     if (key < root->data)
     {
         if (root->left == NULL)
@@ -109,16 +164,17 @@ bool insert(BTNode *root, string key)
         }
         return insert(root->left, key);
     }
-    else if(key>root->data){
+    else if (key > root->data)
+    {
         if (root->right == NULL)
         {
             root->right = createBTNode(root, key);
             return true;
         }
         return insert(root->right, key);
-       
     }
-    else{
+    else
+    {
         root->count++;
         return false;
     }
